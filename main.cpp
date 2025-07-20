@@ -1,16 +1,42 @@
-#include <iostream>
+#include <GLUT/glut.h>
+#include <string>
 
-// TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-int main() {
-	// TIP Press <shortcut actionId="RenameElement"/> when your caret is at the <b>lang</b> variable name to see how CLion can help you rename it.
-	auto lang = "C++";
-	std::cout << "Hello and welcome to " << lang << "!\n";
+void renderBitmapString(float x, float y, void *font, const std::string& str) {
+	glRasterPos2f(x, y);
+	for (char c : str) {
+		glutBitmapCharacter(font, c);
+	}
+}
 
-	for (int i = 1; i <= 5; i++) {
-		// TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-		std::cout << "i = " << i << std::endl;
+void display() {
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	glColor3f(1.0f, 1.0f, 1.0f);  // white text
+
+	// Render 5 lines of "hello, world"
+	for (int i = 0; i < 5; ++i) {
+		float y = 0.9f - float(i) * 0.2f; // vertical spacing
+		renderBitmapString(-0.9f, y, GLUT_BITMAP_HELVETICA_18, "hello, world");
 	}
 
+	glFlush();
+}
+
+void init() {
+	glClearColor(0.0, 0.0, 0.0, 1.0);  // black background
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(-1.0, 1.0, -1.0, 1.0);  // 2D coordinate system
+}
+
+int main(int argc, char** argv) {
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+	glutInitWindowSize(500, 400);
+	glutInitWindowPosition(100, 100);
+	glutCreateWindow("GLUT Hello World x5");
+	init();
+	glutDisplayFunc(display);
+	glutMainLoop();
 	return 0;
-	// TIP See CLion help at <a href="https://www.jetbrains.com/help/clion/">jetbrains.com/help/clion/</a>. Also, you can try interactive lessons for CLion by selecting 'Help | Learn IDE Features' from the main menu.
 }
