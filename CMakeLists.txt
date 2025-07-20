@@ -9,6 +9,5 @@ find_package(GLUT REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIRS} ${GLUT_INCLUDE_DIRS})
 link_libraries(${OPENGL_LIBRARIES} ${GLUT_LIBRARIES})
 
-add_executable(hello_gl main.cpp)
-
-target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES})
+# src files as space-separated list
+add_executable(${PROJECT_NAME} main.cpp)
