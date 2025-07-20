@@ -3,7 +3,7 @@
 
 void renderBitmapString(float x, float y, void *font, const std::string& str) {
 	glRasterPos2f(x, y);
-	for (char c : str) {
+	for (auto c : str) {
 		glutBitmapCharacter(font, c);
 	}
 }
@@ -15,7 +15,7 @@ void display() {
 
 	// Render 5 lines of "hello, world"
 	for (int i = 0; i < 5; ++i) {
-		float y = 0.9f - float(i) * 0.2f; // vertical spacing
+		float y = 0.9f - static_cast<float>(i) * 0.2f; // vertical spacing
 		renderBitmapString(-0.9f, y, GLUT_BITMAP_HELVETICA_18, "hello, world");
 	}
 
